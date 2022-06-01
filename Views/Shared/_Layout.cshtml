@@ -14,28 +14,37 @@
    <script src="~/lib/chartjs/chartjs-plugin-labels.min.js"></script>
 
    @RenderSection("MoreScripts", false)
+<style>
+    body {
+        background: MediumSeaGreen;
+        color: black;
+    }
+</style>
+
 
 </head>
-<body>
-   <img src="~/images/FYP Image Icon.jfif" />
-   @if (User.Identity.IsAuthenticated)
-   {
-      if (User.IsInRole("manager"))
-      {
-         <Partial name="DeliveryMgr" />
-      }
-      else
-      {
-         <Partial name="DeliveryUser" />
-      }
-   }
-   else
-   {
-      <Partial name="DeliveryGuest" />
-   }
 
-   <div class="container">
-      @RenderBody()
-   </div>
+<body>
+    <img src="~/images/FYP Image Icon.jfif" />
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole("manager"))
+            {
+                <Partial name="DeliveryMgr" />
+            }
+            else
+            {
+                <Partial name="DeliveryUser" />
+            }
+        }
+        else
+        {
+            <Partial name="DeliveryGuest" />
+        }
+
+        <div class="container">
+            @RenderBody()
+        </div>
 </body>
 </html>

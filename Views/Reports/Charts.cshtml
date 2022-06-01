@@ -1,0 +1,52 @@
+﻿@section MoreScripts {
+    <script src="~/lib/chartjs/Chart.min.js"></script>
+    <script src="~/lib/chartjs/chartjs-plugin-labels.min.js"></script>
+
+    <script language="javascript">
+
+
+      $(document).ready(function () {
+          new Chart(document.getElementById("chart"), {
+              type: '@ViewData["Chart"]',
+            data: {
+               labels: @Json.Serialize(ViewData["Labels"]),
+                datasets: [{
+                    label: '@ViewData["Legend"]',
+                  data: @Json.Serialize(ViewData["Data"]),
+                  backgroundColor: @Json.Serialize(ViewData["Colors"]),
+                  fill: false
+               }]
+            },
+            options: {
+               responsive: false,
+               scaleBeginAtZero: true,
+               legend: {
+                  display: @ViewData["ShowLegend"]
+               },
+               scales: {
+                  yAxes: [{
+                     display: @(ViewData["Chart"].ToString().Equals("pie")?"false":"true"),
+                     gridLines: {
+                        display: false,
+                     },
+                     ticks: {
+                        beginAtZero: true,
+                        stepSize: 1
+                     }
+                  }]
+               },
+               plugins: {
+                  labels: {
+                     render: 'value'
+                  }
+               }
+            }
+         });
+      });
+
+    </script>
+}
+
+<h2>Delivery by @ViewData["Title"]</h2>
+<canvas id="chart" width="600" height="300"></canvas>
+

@@ -7,6 +7,7 @@ using System.Security.Claims;
 using WebApplication1.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebApplication1.Controllers
 {
@@ -63,15 +64,23 @@ namespace WebApplication1.Controllers
          return View();
       }
 
-      [Authorize(Roles = "manager")]
+      [Authorize(Roles = "manager, admin")]
       public IActionResult Users()
       {
-         List<DeliUser> list = DBUtl.GetList<DeliUser>("SELECT * FROM DeliUser WHERE UserRole='member' ");
+         List<DeliUser> list = DBUtl.GetList<DeliUser>("SELECT * FROM DeliUser ");
          return View(list);
       }
 
-      [Authorize(Roles = "manager")]
-      public IActionResult Delete(string id)
+      [Authorize(Roles = "admin")]
+        public IActionResult Companies()
+        {
+            List<Company> list = DBUtl.GetList<Company>("SELECT * FROM Company ");
+            return View(list);
+        }
+
+
+        [Authorize(Roles = "manager, admin")]
+      public IActionResult DeleteUser(string id)
       {
          string delete = "DELETE FROM DeliUser WHERE UserId='{0}'";
          int res = DBUtl.ExecSQL(delete, id);
@@ -89,57 +98,140 @@ namespace WebApplication1.Controllers
          return RedirectToAction("Users");
       }
 
-      [AllowAnonymous]
-      public IActionResult Register()
+        [Authorize(Roles = "admin")]
+        public IActionResult DeleteCompany(string id)
+        {
+            string delete = "DELETE FROM Company WHERE CompanyId='{0}'";
+            int res = DBUtl.ExecSQL(delete, id);
+            if (res == 1)
+            {
+                TempData["Message"] = "Company Record Deleted";
+                TempData["MsgType"] = "success";
+            }
+            else
+            {
+                TempData["Message"] = DBUtl.DB_Message;
+                TempData["MsgType"] = "danger";
+            }
+
+            return RedirectToAction("Companies");
+        }
+
+        [AllowAnonymous]
+      public IActionResult RegisterEmployee()
       {
-         return View("UserRegister");
+         ViewData["Companies"] = GetListCompanies();
+         return View("UserRegisterEmployee");
       }
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Register(DeliUser usr)
+        public IActionResult RegisterEmployee(DeliUser usr)
         {
             if (!ModelState.IsValid)
             {
+                ViewData["Companies"] = GetListCompanies();
                 ViewData["Message"] = "Invalid Input";
                 ViewData["MsgType"] = "warning";
-                return View("UserRegister");
+                return View("UserRegisterEmployee");
             }
             else
             {
                 string insert =
-                   @"INSERT INTO DeliUser(UserId, UserPw, FullName, Email, UserRole) VALUES
-                 ('{0}', HASHBYTES('SHA1', '{1}'), '{2}', '{3}', 'member')";
-                if (DBUtl.ExecSQL(insert, usr.UserId, usr.UserPw, usr.FullName, usr.Email) == 1)
+                   @"INSERT INTO DeliUser(UserId, UserPw, FullName, Email, UserRole, CompanyId) VALUES
+                 ('{0}', HASHBYTES('SHA1', '{1}'), '{2}', '{3}', 'member', {4})";
+                if (DBUtl.ExecSQL(insert, usr.UserId, usr.UserPw, usr.FullName, usr.Email, usr.CompanyId) == 1)
                 {
+
                     ViewData["Message"] = "User Successfully Registered";
                     ViewData["MsgType"] = "success";
-                    return View("UserRegister");
+                    return View("UserRegisterEmployee");
 
-                    string template = @"Hi {0},<br/><br/>
-                               Welcome to Carbon Footprint Insights!
-                               Your userid is <b>{1}</b> and password is <b>{2}</b>.
-                               <br/><br/>FYP Team";
-                    string title = "Registration Successul - Welcome";
-                    string message = String.Format(template, usr.FullName, usr.UserId, usr.UserPw);
-                    string result;
-                    if (EmailUtl.SendEmail(usr.Email, title, message, out result))
-                    {
-                        ViewData["Message"] = "User Successfully Registered";
-                        ViewData["MsgType"] = "success";
-                    }
-                    else
-                    {
-                        ViewData["Message"] = result;
-                        ViewData["MsgType"] = "warning";
-                    }
                 }
                 else
                 {
                     ViewData["Message"] = DBUtl.DB_Message;
                     ViewData["MsgType"] = "danger";
                 }
-                return View("UserRegister");
+                return View("UserRegisterEmployee");
+            }
+        }
+        [AllowAnonymous]
+        public IActionResult RegisterEmployer()
+        {
+            ViewData["Companies"] = GetListCompanies();
+            return View("UserRegisterEmployer");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult RegisterEmployer(DeliUser usr)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewData["Companies"] = GetListCompanies();
+                ViewData["Message"] = "Invalid Input";
+                ViewData["MsgType"] = "warning";
+                return View("UserRegisterEmployer");
+            }
+            else
+            {
+                string insertuser =
+               @"INSERT INTO DeliUser(UserId, UserPw, FullName, Email, UserRole, CompanyId) VALUES
+                    ('{0}', HASHBYTES('SHA1', '{1}'), '{2}', '{3}', 'manager', {4})";
+
+                if (DBUtl.ExecSQL(insertuser, usr.UserId, usr.UserPw, usr.FullName, usr.Email, usr.CompanyId) == 1)
+                {
+                    ViewData["Message"] = "User Successfully Registered";
+                    ViewData["MsgType"] = "success";
+                    return View("UserRegisterEmployer");
+                }
+                else
+                {
+                    ViewData["Message"] = DBUtl.DB_Message;
+                    ViewData["MsgType"] = "danger";
+                }
+
+                return View("UserRegisterEmployer");
+            }
+        }
+        [AllowAnonymous]
+        public IActionResult RegisterCompany()
+        {
+            ViewData["Companies"] = GetListCompanies();
+            return View("UserRegisterCompany");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult RegisterCompany(Company com)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewData["Companies"] = GetListCompanies();
+                ViewData["Message"] = "Invalid Input";
+                ViewData["MsgType"] = "warning";
+                return View("UserRegisterCompany");
+            }
+            else
+            {
+                string insertuser =
+               @"INSERT INTO Company(CompanyName) VALUES
+                    ('{0}')";
+
+                if (DBUtl.ExecSQL(insertuser, com.CompanyName) == 1)
+                {
+                    ViewData["Message"] = "Company Successfully Registered";
+                    ViewData["MsgType"] = "success";
+                    return View("UserRegisterCompany");
+                }
+                else
+                {
+                    ViewData["Message"] = DBUtl.DB_Message;
+                    ViewData["MsgType"] = "danger";
+                }
+
+                return View("UserRegisterCompany");
             }
         }
 
@@ -180,7 +272,12 @@ namespace WebApplication1.Controllers
             return true;
          }
          return false;
-      } 
-
-   }
+      }
+        private static SelectList GetListCompanies()
+        {
+            string companySql = @"SELECT LTRIM(STR(CompanyId)) as Value, CompanyName as Text FROM Company";
+            List<SelectListItem> companyList = DBUtl.GetList<SelectListItem>(companySql);
+            return new SelectList(companyList, "Value", "Text");
+        }
+    }
 }

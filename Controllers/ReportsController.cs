@@ -11,7 +11,7 @@ namespace WebApplication1.Controllers
    public class ReportsController : Controller
    {
 
-        [Authorize(Roles = "manager")]
+        [Authorize(Roles = "manager, admin")]
         public IActionResult Distance()
       {
 
@@ -21,7 +21,7 @@ namespace WebApplication1.Controllers
          ViewData["ShowLegend"] = "true";
          return View("Charts");
       }
-        [Authorize(Roles = "manager")]
+        [Authorize(Roles = "manager, admin")]
         public IActionResult Vehicle()
         { 
          PrepareData(2); 
@@ -30,7 +30,7 @@ namespace WebApplication1.Controllers
          ViewData["ShowLegend"] = "true";
          return View("Charts");
       }
-        [Authorize(Roles = "manager")]
+        [Authorize(Roles = "manager, admin")]
         public IActionResult CarbonEmission()
       {
          

@@ -29,14 +29,18 @@
 
         @if (User.Identity.IsAuthenticated)
         {
-            if (User.IsInRole("manager"))
+            if (User.IsInRole("admin"))
+            {
+                <Partial name="DeliveryAdmin" />
+            }
+            else if (User.IsInRole("manager"))
             {
                 <Partial name="DeliveryMgr" />
             }
             else
-            {
-                <Partial name="DeliveryUser" />
-            }
+                {
+                    <Partial name="DeliveryUser"/>
+                }
         }
         else
         {

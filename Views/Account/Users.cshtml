@@ -7,12 +7,14 @@
     </div>
 }
 
-<h2>Members</h2>
+<h2>Users</h2>
 
 <table class="table table-condensed table-hover">
     <tr>
         <th scope="col">ID</th>
         <th scope="col">Name</th>
+        <th scope="col">Company</th>
+        <th scope="col">Email</th>
         <th scope="col">Action</th>
     </tr>
     @foreach (DeliUser user in Model)
@@ -20,12 +22,15 @@
         <tr>
             <td>@user.UserId</td>
             <td>@user.FullName</td>
+            <td>@user.CompanyId</td>
+            <td>@user.Email</td>
             <td>
                 <a asp-controller="Account"
-                   asp-action="Delete"
+                   asp-action="DeleteUser"
                    asp-route-id="@user.UserId"
                    onclick="return confirm('Delete User [@user.FullName]')">Delete</a>
             </td>
         </tr>
     }
 </table>
+

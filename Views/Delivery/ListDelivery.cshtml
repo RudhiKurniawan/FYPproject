@@ -42,10 +42,14 @@
             <th scope="col">Type</th>
             <th scope="col">Carbon Emission</th>
 
-            @if (User.IsInRole("manager"))
+            @if (User.IsInRole("admin") || User.IsInRole("manager"))
             {
                 <th scope="col">Operation</th>
             }
+
+          
+
+
 
         </tr>
     </thead>
@@ -65,12 +69,12 @@
             <td>@dv.Distance</td>
             <td>@dv.WeightPackage</td>
             <td>@dv.Speed </td>
-            <td>@dv.VehicleName</td>
+            <td>@dv.VehicleType</td>
             <td>@dv.CarbonEmi</td>
 
 
-           
-            @if (User.IsInRole("manager"))
+
+            @if (User.IsInRole("admin") || User.IsInRole("manager"))
             {
                 <td>
                     <a asp-controller="Delivery" asp-action="EditDelivery"
@@ -83,6 +87,7 @@
                     </a>
                 </td>
             }
+
 
         </tr>
         }

@@ -5,9 +5,13 @@ using System.Threading.Tasks;
 
 namespace WebApplication1.Models
 {
-    public class Vehicle
+    public class Company
     {
-        public int VehicleId { get; set; }
-        public string VehicleType { get; set; }
+        public int CompanyId { get; set; }
+        public string CompanyName { get; set; }
+
+        
     }
+
+    
 }

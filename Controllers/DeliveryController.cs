@@ -16,27 +16,29 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+
         [AllowAnonymous]
         public IActionResult Calculation()
         {
             ViewData["Vehicles"] = GetListVehicles();
             return View();
         }
-        [Authorize(Roles = "manager, member")]
+
+        [Authorize(Roles = "manager, member, admin")]
         public IActionResult ListDelivery()
         {
             List<Delivery> delivery = DBUtl.GetList<Delivery>(
             @"SELECT * FROM Delivery, Vehicle
-WHERE Delivery.VehicleId = Vehicle.VehicleId");
+              WHERE Delivery.VehicleId = Vehicle.VehicleId");
             return View(delivery);
         }
-        [Authorize(Roles = "manager, member")]
+        [Authorize(Roles = "manager, member, admin")]
         public IActionResult AddDelivery()
         {
             ViewData["Vehicles"] = GetListVehicles();
             return View();
         }
-        [Authorize(Roles = "manager, member")]
+        [Authorize(Roles = "manager, member, admin")]
         [HttpPost]
         public IActionResult AddDelivery(Delivery newDelivery)
         {
@@ -65,7 +67,7 @@ WHERE Delivery.VehicleId = Vehicle.VehicleId");
                 return RedirectToAction("ListDelivery");
             }
         }
-        [Authorize(Roles = "manager")]
+        [Authorize(Roles = "manager, admin")]
         [HttpGet]
         public IActionResult EditDelivery(string id)
         {
@@ -87,7 +89,7 @@ WHERE Delivery.VehicleId = Vehicle.VehicleId");
                 return RedirectToAction("ListDelivery");
             }
         }
-        [Authorize(Roles = "manager")]
+        [Authorize(Roles = "manager, admin")]
         [HttpPost]
         public IActionResult EditDelivery(Delivery deli)
         {
@@ -117,7 +119,7 @@ WHERE Delivery.VehicleId = Vehicle.VehicleId");
             }
             return RedirectToAction("ListDelivery");
         }
-        [Authorize(Roles = "manager")]
+        [Authorize(Roles = "manager, admin")]
         public IActionResult DeleteDelivery(int id)
         {
             string select = @"SELECT * FROM Delivery 
@@ -147,7 +149,7 @@ WHERE Delivery.VehicleId = Vehicle.VehicleId");
         }
         private static SelectList GetListVehicles()
         {
-            string vehicleSql = @"SELECT LTRIM(STR(VehicleId)) as Value, VehicleName as Text FROM Vehicle";
+            string vehicleSql = @"SELECT LTRIM(STR(VehicleId)) as Value, VehicleType as Text FROM Vehicle";
             List<SelectListItem> vehicleList = DBUtl.GetList<SelectListItem>(vehicleSql);
             return new SelectList(vehicleList, "Value", "Text");
         }

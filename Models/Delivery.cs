@@ -25,7 +25,7 @@ namespace WebApplication1.Models
 
       public int VehicleId { get; set; }
 
-      public string VehicleName { get; set; }
+      public string VehicleType { get; set; }
 
       public double CarbonEmi { get; set; }
     }

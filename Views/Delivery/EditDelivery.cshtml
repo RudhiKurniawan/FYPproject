@@ -26,6 +26,26 @@
     </div>
 
     <input asp-for="DeliveryId" hidden />
+    <div class="form-group row">
+        <label class="control-label col-sm-2" asp-for="FullName">Full Name :</label>
+        <div class="col-sm-5">
+            <input asp-for="FullName" class="form-control" />
+        </div>
+        <div class="col-sm-4">
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-sm-2" asp-for="CompanyId">Company :</label>
+        <div class="col-sm-3">
+            <select class="form-control dropdown" asp-for="CompanyId"
+                    asp-items="@ViewData["Companies"] as SelectList">
+                <option value="">Please Select your Company</option>
+            </select>
+        </div>
+    </div>
+
 
     <div class="form-group row">
         <label class="control-label col-sm-2" asp-for="Details">Details :</label>
@@ -160,7 +180,7 @@
                 <option value="Kyrgyzstan">Kyrgyzstan</option>
                 <option value="Lao">Lao People's Democratic Republic</option>
                 <option value="Latvia">Latvia</option>
-                <option value="Lebanon" selected>Lebanon</option>
+                <option value="Lebanon">Lebanon</option>
                 <option value="Lesotho">Lesotho</option>
                 <option value="Liberia">Liberia</option>
                 <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
@@ -284,17 +304,6 @@
         </div>
     </div>
 
-    <!--<div class="form-group row">
-        <label class="control-label col-sm-2" asp-for="CountryTo">To :</label>
-        <div class="col-sm-5">
-            <input asp-for="CountryTo" class="form-control" />
-        </div>
-        <div class="col-sm-4">
-            <span asp-validation-for="CountryTo" class="text-danger"></span>
-        </div>
-    </div>
-
-        -->
     <div class="form-group row">
         <label class="control-label col-sm-2" asp-for="CountryTo">To :</label>
         <div class="col-sm-3">
@@ -418,7 +427,7 @@
                 <option value="Kyrgyzstan">Kyrgyzstan</option>
                 <option value="Lao">Lao People's Democratic Republic</option>
                 <option value="Latvia">Latvia</option>
-                <option value="Lebanon" selected>Lebanon</option>
+                <option value="Lebanon">Lebanon</option>
                 <option value="Lesotho">Lesotho</option>
                 <option value="Liberia">Liberia</option>
                 <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>

@@ -9,34 +9,29 @@
 
    <div class="collapse navbar-collapse" id="navbarSupportedContent">
        <ul class="navbar-nav mr-auto">
-         
-           <li class="nav-item dropdown">
-               <a class="nav-link dropdown-toggle" data-toggle="dropdown">
-                   <i class="fas fa-user-plus"></i>
-                   Register
-               </a>
-               <div class="dropdown-menu">
-                   <a class="nav-link" asp-controller="Account" asp-action="RegisterCustomer"><i class="fas fa-user"></i> Customer</a>
-                   <a class="nav-link" asp-controller="Account" asp-action="RegisterEmployee"><i class="fas fa-user"></i> Employee</a>
-                   <a class="nav-link" asp-controller="Account" asp-action="RegisterEmployer"><i class="fas fa-user-tie"></i> Employer</a>
-                   <a class="nav-link" asp-controller="Account" asp-action="RegisterCompany"><i class="fas fa-building"></i> Company</a>
-               </div>
-           </li>
-
            <li class="nav-item">
                <a class="nav-link" asp-controller="Delivery" asp-action="About"><i class="fas fa-info-circle"></i> About</a>
            </li>
+         
+           <li class="nav-item">
+               <a class="nav-link" asp-controller="Delivery" asp-action="ListDelivery"><i class="fas fa-boxes"></i> Delivery</a>
+           </li>
+         
            <li class="nav-item">
                <a class="nav-link" asp-controller="Delivery" asp-action="Calculation"><i class="fas fa-calculator"></i> Calculate</a>
            </li>
-
        </ul>
 
       <ul class="nav navbar-nav ml-auto">
          <li>
-            <a class="nav-link" asp-controller="Account" asp-action="Login">
-               <i class="fa fa-sign-in"></i>
-               Login
+            <p class="navbar-text">
+               Welcome @User.Identity.Name<br />
+            </p>
+         </li>
+         <li>
+            <a class="nav-link" asp-controller="Account" asp-action="Logoff">
+               <i class="fa fa-sign-out"></i>
+               Logout
             </a>
          </li>
          <li>
@@ -45,3 +40,8 @@
       </ul>
    </div>
 </nav>
+
+
+
+
+

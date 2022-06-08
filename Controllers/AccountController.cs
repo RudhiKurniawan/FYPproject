@@ -68,7 +68,8 @@ namespace WebApplication1.Controllers
       public IActionResult Users()
       {
          List<DeliUser> list = DBUtl.GetList<DeliUser>("SELECT * FROM DeliUser ");
-         return View(list);
+            ViewData["Companies"] = GetListCompanies();
+            return View(list);
       }
 
       [Authorize(Roles = "admin")]
@@ -156,6 +157,45 @@ namespace WebApplication1.Controllers
                 return View("UserRegisterEmployee");
             }
         }
+
+        [AllowAnonymous]
+        public IActionResult RegisterCustomer()
+        {
+
+            return View("UserRegisterCustomer");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult RegisterCustomer(DeliUser usr)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewData["Message"] = "Invalid Input";
+                ViewData["MsgType"] = "warning";
+                return View("UserRegisterCustomer");
+            }
+            else
+            {
+                string insert =
+                   @"INSERT INTO DeliUser(UserId, UserPw, FullName, Email, UserRole, CompanyId) VALUES
+                 ('{0}', HASHBYTES('SHA1', '{1}'), '{2}', '{3}', 'customer', NULL)";
+                if (DBUtl.ExecSQL(insert, usr.UserId, usr.UserPw, usr.FullName, usr.Email, usr.CompanyId) == 1)
+                {
+
+                    ViewData["Message"] = "Customer Successfully Registered";
+                    ViewData["MsgType"] = "success";
+                    return View("UserRegisterCustomer");
+
+                }
+                else
+                {
+                    ViewData["Message"] = DBUtl.DB_Message;
+                    ViewData["MsgType"] = "danger";
+                }
+                return View("UserRegisterCustomer");
+            }
+        }
         [AllowAnonymous]
         public IActionResult RegisterEmployer()
         {
@@ -235,6 +275,7 @@ namespace WebApplication1.Controllers
             }
         }
 
+
         [AllowAnonymous]
       public IActionResult VerifyUserID(string userId)
       {
@@ -245,8 +286,7 @@ namespace WebApplication1.Controllers
          }
          return Json(true);
       }
-        
-      private bool AuthenticateUser(string uid, string pw, out ClaimsPrincipal principal)
+        private bool AuthenticateUser(string uid, string pw, out ClaimsPrincipal principal)
       {
          principal = null;
 

@@ -24,6 +24,25 @@
             <h2>Add Delivery</h2>
         </div>
     </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2" asp-for="FullName">Full Name :</label>
+        <div class="col-sm-5">
+            <input asp-for="FullName" class="form-control" />
+        </div>
+        <div class="col-sm-4">
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-sm-2" asp-for="CompanyId">Company :</label>
+        <div class="col-sm-3">
+            <select class="form-control dropdown" asp-for="CompanyId"
+                    asp-items="@ViewData["Companies"] as SelectList">
+                <option value="">Please Select your Company</option>
+            </select>
+        </div>
+    </div>
 
     <div class="form-group row">
         <label class="control-label col-sm-2" asp-for="Details">Details :</label>
@@ -34,17 +53,6 @@
             <span asp-validation-for="Details" class="text-danger"></span>
         </div>
     </div>
-
-    <!--<div class="form-group row">
-        <label class="control-label col-sm-2" asp-for="CountryFrom">From :</label>
-        <div class="col-sm-5">
-            <input asp-for="CountryFrom" class="form-control" />
-        </div>
-        <div class="col-sm-4">
-            <span asp-validation-for="CountryFrom" class="text-danger"></span>
-        </div>
-    </div>
-    -->
 
     <div class="form-group row">
         <label class="control-label col-sm-2" asp-for="CountryFrom">From :</label>
@@ -169,7 +177,7 @@
                 <option value="Kyrgyzstan">Kyrgyzstan</option>
                 <option value="Lao">Lao People's Democratic Republic</option>
                 <option value="Latvia">Latvia</option>
-                <option value="Lebanon" selected>Lebanon</option>
+                <option value="Lebanon">Lebanon</option>
                 <option value="Lesotho">Lesotho</option>
                 <option value="Liberia">Liberia</option>
                 <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
@@ -239,7 +247,7 @@
                 <option value="Senegal">Senegal</option>
                 <option value="Seychelles">Seychelles</option>
                 <option value="Sierra">Sierra Leone</option>
-                <option value="Singapore">Singapore</option>
+                <option value="Singapore" selected>Singapore</option>
                 <option value="Slovakia">Slovakia (Slovak Republic)</option>
                 <option value="Slovenia">Slovenia</option>
                 <option value="Solomon Islands">Solomon Islands</option>
@@ -427,7 +435,7 @@
                 <option value="Kyrgyzstan">Kyrgyzstan</option>
                 <option value="Lao">Lao People's Democratic Republic</option>
                 <option value="Latvia">Latvia</option>
-                <option value="Lebanon" selected>Lebanon</option>
+                <option value="Lebanon">Lebanon</option>
                 <option value="Lesotho">Lesotho</option>
                 <option value="Liberia">Liberia</option>
                 <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
@@ -497,7 +505,7 @@
                 <option value="Senegal">Senegal</option>
                 <option value="Seychelles">Seychelles</option>
                 <option value="Sierra">Sierra Leone</option>
-                <option value="Singapore">Singapore</option>
+                <option value="Singapore" selected>Singapore</option>
                 <option value="Slovakia">Slovakia (Slovak Republic)</option>
                 <option value="Slovenia">Slovenia</option>
                 <option value="Solomon Islands">Solomon Islands</option>

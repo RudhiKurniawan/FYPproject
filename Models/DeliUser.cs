@@ -30,8 +30,11 @@ namespace WebApplication1.Models
 
         public string UserRole { get; set; }
 
-        public int CompanyId{ get; set; }
+        public string CompanyName { get; set; }
+        public int CompanyId { get; set; }
 
-       
+
+
+
     }
 }

@@ -1,18 +1,13 @@
-
-@using WebApplication1.Models;
-@using WebApplication1; 
-
-@model DeliUser
-
-
+﻿@model DeliUser
 
 <form asp-controller="Account"
-      asp-action="RegisterEmployer"
+      asp-action="RegisterCustomer"
       method="post">
+
 
     <div class="form-group row">
         <div class="offset-sm-0 col-sm-4">
-            <h2>Register an Account as an Employer</h2>
+            <h2>Register an Account as a Useromer</h2>
         </div>
     </div>
 
@@ -47,15 +42,6 @@
         </div>
     </div>
 
-    <div class="form-group row">
-        <label class="control-label col-sm-2" asp-for="CompanyId">Company :</label>
-        <div class="col-sm-3">
-            <select class="form-control dropdown" asp-for="CompanyId"
-                    asp-items="@ViewData["Companies"] as SelectList">
-                <option value="">Please Select your Company</option>
-            </select>
-        </div>
-    </div>
 
     <div class="form-group row">
         <label class="control-label col-sm-2" asp-for="UserPw">Password :</label>
@@ -93,4 +79,3 @@
     }
 
 </form>
-

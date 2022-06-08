@@ -37,9 +37,13 @@
             {
                 <Partial name="DeliveryMgr" />
             }
-            else
+            else if (User.IsInRole("member"))
                 {
                     <Partial name="DeliveryUser"/>
+                }
+            else
+                {
+                    <Partial name="DeliveryCust" /> 
                 }
         }
         else

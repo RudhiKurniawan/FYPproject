@@ -15,6 +15,7 @@
         <th scope="col">Name</th>
         <th scope="col">Company</th>
         <th scope="col">Email</th>
+        <th scope="col">UserRole</th>
         <th scope="col">Action</th>
     </tr>
     @foreach (DeliUser user in Model)
@@ -22,8 +23,9 @@
         <tr>
             <td>@user.UserId</td>
             <td>@user.FullName</td>
-            <td>@user.CompanyId</td>
+            <td>@user.CompanyName</td>
             <td>@user.Email</td>
+            <td>@user.UserRole</td>
             <td>
                 <a asp-controller="Account"
                    asp-action="DeleteUser"

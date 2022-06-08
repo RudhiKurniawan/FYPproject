@@ -11,7 +11,11 @@ namespace WebApplication1.Models
 
       public int DeliveryId { get; set; }
 
-      public string Details { get; set; }
+        public string FullName { get; set; }
+
+        public int CompanyId{ get; set; }
+
+        public string Details { get; set; }
 
       public string CountryFrom { get; set; }
 

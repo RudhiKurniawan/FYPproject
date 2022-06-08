@@ -24,7 +24,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        [Authorize(Roles = "manager, member, admin")]
+        [Authorize(Roles = "manager, member, admin, customer")]
         public IActionResult ListDelivery()
         {
             List<Delivery> delivery = DBUtl.GetList<Delivery>(
@@ -36,6 +36,7 @@ namespace WebApplication1.Controllers
         public IActionResult AddDelivery()
         {
             ViewData["Vehicles"] = GetListVehicles();
+            ViewData["Companies"] = GetListCompanies();
             return View();
         }
         [Authorize(Roles = "manager, member, admin")]
@@ -45,16 +46,17 @@ namespace WebApplication1.Controllers
             if (!ModelState.IsValid)
             {
                 ViewData["Vehicles"] = GetListVehicles();
+                ViewData["Companies"] = GetListCompanies();
                 ViewData["Message"] = "Invalid Input";
                 ViewData["MsgType"] = "warning";
                 return View("AddDelivery");
             }
             else
             {
-                string insert = @"INSERT INTO Delivery(Details, CountryFrom, CountryTo, Distance, WeightPackage, Speed, VehicleId, CarbonEmi)
-                                  VALUES('{0}', '{1}', '{2}', {3}, {4}, {5}, {6}, {7})";
+                string insert = @"INSERT INTO Delivery(FullName, CompanyId, Details, CountryFrom, CountryTo, Distance, WeightPackage, Speed, VehicleId, CarbonEmi)
+                                  VALUES('{0}', '{1}', {2} ,'{3}', '{4}', {5}, {6}, {7}, {8}, {9})";
                 int result =
-                DBUtl.ExecSQL(insert, newDelivery.Details, newDelivery.CountryFrom, newDelivery.CountryTo, newDelivery.Distance, newDelivery.WeightPackage, newDelivery.Speed, newDelivery.VehicleId, newDelivery.CarbonEmi); if (result == 1)
+                DBUtl.ExecSQL(insert, newDelivery.FullName, newDelivery.CompanyId, newDelivery.Details, newDelivery.CountryFrom, newDelivery.CountryTo, newDelivery.Distance, newDelivery.WeightPackage, newDelivery.Speed, newDelivery.VehicleId, newDelivery.CarbonEmi); if (result == 1)
                 {
                     TempData["Message"] = "Delivery Created";
                     TempData["MsgType"] = "success";
@@ -71,7 +73,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult EditDelivery(string id)
         {
-            string deliverySql = @"SELECT DeliveryId, Details, CountryFrom, CountryTo,
+            string deliverySql = @"SELECT DeliveryId, FullName, CompanyId, Details, CountryFrom, CountryTo,
                                    Distance, WeightPackage, Speed, Vehicle.VehicleId, CarbonEmi
                                    FROM Delivery, Vehicle
                                    WHERE Delivery.VehicleId = Vehicle.VehicleId
@@ -80,6 +82,7 @@ namespace WebApplication1.Controllers
             if (deliveryList.Count == 1)
             {
                 ViewData["Vehicles"] = GetListVehicles();
+                ViewData["Companies"] = GetListCompanies();
                 return View(deliveryList[0]);
             }
             else
@@ -96,15 +99,16 @@ namespace WebApplication1.Controllers
             if (!ModelState.IsValid)
             {
                 ViewData["Vehicles"] = GetListVehicles();
+                ViewData["Companies"] = GetListCompanies();
                 ViewData["Message"] = "Invalid Input";
                 ViewData["MsgType"] = "warning";
                 return View("EditDelivery");
             }
             string update = @"UPDATE Delivery
-                              SET Details= '{1}', CountryFrom='{2}', CountryTo='{3}', Distance={4}, WeightPackage={5}, Speed={6}, VehicleId={7}, CarbonEmi={8}
+                              SET FullName= '{1}', CompanyId = {2}, Details= '{3}', CountryFrom='{4}', CountryTo='{5}', Distance={6}, WeightPackage={7}, Speed={8}, VehicleId={9}, CarbonEmi={10}
                               WHERE DeliveryId={0}";
             int result =
-            DBUtl.ExecSQL(update, deli.DeliveryId, deli.Details, deli.CountryFrom,
+            DBUtl.ExecSQL(update, deli.DeliveryId, deli.FullName, deli.CompanyId, deli.Details, deli.CountryFrom,
             deli.CountryTo, deli.Distance, deli.WeightPackage, deli.Speed, deli.VehicleId, deli.CarbonEmi
             );
             if (result == 1)
@@ -152,6 +156,12 @@ namespace WebApplication1.Controllers
             string vehicleSql = @"SELECT LTRIM(STR(VehicleId)) as Value, VehicleType as Text FROM Vehicle";
             List<SelectListItem> vehicleList = DBUtl.GetList<SelectListItem>(vehicleSql);
             return new SelectList(vehicleList, "Value", "Text");
+        }
+        private static SelectList GetListCompanies()
+        {
+            string companySql = @"SELECT LTRIM(STR(CompanyId)) as Value, CompanyName as Text FROM Company";
+            List<SelectListItem> companyList = DBUtl.GetList<SelectListItem>(companySql);
+            return new SelectList(companyList, "Value", "Text");
         }
     }
 }

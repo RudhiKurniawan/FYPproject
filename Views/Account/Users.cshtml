@@ -1,5 +1,26 @@
 @model List<DeliUser>
 
+@section MoreScripts {
+    <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#jsUserTable').DataTable({
+                paging: true,
+                ordering: true,
+                searcing: true,
+                info: true,
+                lengthMenu: [[6, 10, 20, -1], [6, 10, 20, "All"]]
+            });
+        });
+    </script>
+
+
+}
+
+<h2>Users</h2>
+
 @if (TempData["Message"] != null)
 {
     <div class="alert alert-@TempData["MsgType"]">
@@ -7,32 +28,38 @@
     </div>
 }
 
-<h2>Users</h2>
-
-<table class="table table-condensed table-hover">
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Company</th>
-        <th scope="col">Email</th>
-        <th scope="col">UserRole</th>
-        <th scope="col">Action</th>
-    </tr>
-    @foreach (DeliUser user in Model)
-    {
+<table id="jsUserTable" class='table'>
+    <thead>
         <tr>
-            <td>@user.UserId</td>
-            <td>@user.FullName</td>
-            <td>@user.CompanyName</td>
-            <td>@user.Email</td>
-            <td>@user.UserRole</td>
-            <td>
-                <a asp-controller="Account"
-                   asp-action="DeleteUser"
-                   asp-route-id="@user.UserId"
-                   onclick="return confirm('Delete User [@user.FullName]')">Delete</a>
-            </td>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Company</th>
+            <th scope="col">Email</th>
+            <th scope="col">UserRole</th>
+            <th scope="col">Action</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (DeliUser user in Model)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.FullName</td>
+                <td>@user.CompanyName</td>
+                <td>@user.Email</td>
+                <td class="text-capitalize">@user.UserRole</td>
+                <td>
+                    <a asp-controller="Account"
+                       asp-action="DeleteUser"
+                       asp-route-id="@user.UserId"
+                       onclick="return confirm('Delete User [@user.FullName]')">
+                        Delete
+                    </a>
+                </td>
+                
+            </tr>
+        }
+    </tbody>
 </table>
+
 

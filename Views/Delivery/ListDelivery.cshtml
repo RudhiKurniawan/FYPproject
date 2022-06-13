@@ -6,7 +6,7 @@
 
     <script>
         $(document).ready(function () {
-            $('#jsMovieTable').DataTable({
+            $('#jsDeliveryTable').DataTable({
                 paging: true,
                 ordering: true,
                 searcing: true,
@@ -28,7 +28,7 @@
     </div>
 }
 
-<table id="jsMovieTable" class="table">
+<table id="jsDeliveryTable" class="table">
     <thead>
         <tr>
             @{//<th scope="col">ID</th>
@@ -48,11 +48,6 @@
             {
                 <th scope="col">Operation</th>
             }
-
-
-
-
-
         </tr>
     </thead>
     <tbody>
@@ -65,7 +60,7 @@
 
 
             <td>@dv.FullName</td>
-            <td>@dv.CompanyId</td>
+            <td>@dv.CompanyName</td>
             <td>@dv.Details</td>
             <td>@dv.CountryFrom</td>
             <td>@dv.CountryTo</td>

@@ -28,8 +28,9 @@ namespace WebApplication1.Controllers
         public IActionResult ListDelivery()
         {
             List<Delivery> delivery = DBUtl.GetList<Delivery>(
-            @"SELECT * FROM Delivery, Vehicle
-              WHERE Delivery.VehicleId = Vehicle.VehicleId");
+            @"SELECT * FROM Delivery, Vehicle, Company
+              WHERE Delivery.VehicleId = Vehicle.VehicleId
+              AND Delivery.CompanyId = Company.CompanyId");
             return View(delivery);
         }
         [Authorize(Roles = "manager, member, admin")]

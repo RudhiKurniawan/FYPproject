@@ -15,6 +15,8 @@ namespace WebApplication1.Models
 
         public int CompanyId{ get; set; }
 
+        public string CompanyName { get; set; }
+
         public string Details { get; set; }
 
       public string CountryFrom { get; set; }

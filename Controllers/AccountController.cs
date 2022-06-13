@@ -67,8 +67,10 @@ namespace WebApplication1.Controllers
       [Authorize(Roles = "manager, admin")]
       public IActionResult Users()
       {
-         List<DeliUser> list = DBUtl.GetList<DeliUser>("SELECT * FROM DeliUser ");
-            ViewData["Companies"] = GetListCompanies();
+         List<DeliUser> list = DBUtl.GetList<DeliUser>(
+             @"SELECT * FROM DeliUser, Company 
+               WHERE DeliUser.CompanyId = Company.CompanyId");
+
             return View(list);
       }
 

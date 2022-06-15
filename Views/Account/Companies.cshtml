@@ -1,31 +1,46 @@
 @model List<Company>
 
-@if (TempData["Message"] != null)
-{
-    <div class="alert alert-@TempData["MsgType"]">
-        @TempData["Message"]
-    </div>
+@section MoreScripts {
+    <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#jsUserTable').DataTable({
+                paging: true,
+                ordering: true,
+                searcing: true,
+                info: true,
+                lengthMenu: [[6, 10, 20, -1], [6, 10, 20, "All"]]
+            });
+        });
+    </script>
+
+
 }
 
 <h2>Companies</h2>
 
-<table class="table table-condensed table-hover">
-    <tr>
-
-        <th scope="col">Name</th>
-
-    </tr>
-    @foreach (Company com in Model)
-    {
+<table id="jsUserTable" class='table'>
+    <thead>
         <tr>
-            <td>@com.CompanyName</td>
-
-            <td>
-                <a asp-controller="Account"
-                   asp-action="DeleteCompany"
-                   asp-route-id="@com.CompanyId"
-                   onclick="return confirm('Delete User [@com.CompanyName]')">Delete</a>
-            </td>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (Company com in Model)
+        {
+            <tr>
+                <td>@com.CompanyName</td>
+
+                <td>
+                    <a asp-controller="Account"
+                       asp-action="DeleteCompany"
+                       asp-route-id="@com.CompanyId"
+                       onclick="return confirm('Delete User [@com.CompanyName]')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

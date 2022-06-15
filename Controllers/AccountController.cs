@@ -23,7 +23,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("About", "Delivery");
         }
 
-        [AllowAnonymous]
+      [AllowAnonymous]
       public IActionResult Login(string returnUrl = null)
       {
          TempData["ReturnUrl"] = returnUrl;
@@ -38,7 +38,7 @@ namespace WebApplication1.Controllers
          {
             ViewData["Message"] = "Incorrect User ID or Password";
             ViewData["MsgType"] = "warning";
-            return View();
+            return View("UserLogin");
          }
          else
          {

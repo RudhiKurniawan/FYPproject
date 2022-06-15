@@ -28,7 +28,7 @@
     </div>
 }
 
-<table id="jsDeliveryTable" class="table">
+<table id="jsDeliveryTable" class='table'>
     <thead>
         <tr>
             @{//<th scope="col">ID</th>
@@ -38,12 +38,12 @@
             <th scope="col">Details</th>
             <th scope="col">From</th>
             <th scope="col">To</th>
-            <th scope="col">Distance (in km)</th>
-            <th scope="col">Type of Vehicle</th>
-            <th scope="col">Weight of Package (in kg)</th>
-            <th scope="col">Weight of Vehicle (in kg)</th>
-            <th scope="col">Weight of Loaded Vehicle (in kg)</th>
-            <th scope="col">Speed of Vehicle (in km/h)</th>
+            <th scope="col">Distance</th>
+            <th scope="col">Vehicle Type</th>
+            <th scope="col">Weight of Package</th>
+            <th scope="col">Weight of Vehicle</th>
+            <th scope="col">Weight of Loaded Vehicle</th>
+            <th scope="col">Speed of Vehicle</th>
             <th scope="col">Carbon Emission</th>
 
             @if (User.IsInRole("admin") || User.IsInRole("manager"))
@@ -66,12 +66,12 @@
             <td>@dv.Details</td>
             <td>@dv.CountryFrom</td>
             <td>@dv.CountryTo</td>
-            <td>@dv.Distance</td>
+            <td>@String.Format("{0} km", dv.Distance)</td>
             <td>@dv.VehicleType</td>
-            <td>@dv.WeightPackage</td>
-            <td>@dv.VehicleWeight</td>
-            <td>@dv.TotalWeight</td>
-            <td>@dv.VehicleSpeed </td>
+            <td>@String.Format("{0} kg", dv.WeightPackage)</td>
+            <td>@String.Format("{0} kg", dv.VehicleWeight)</td>
+            <td>@String.Format("{0} kg", dv.TotalWeight)</td>
+            <td>@String.Format("{0} km/h", dv.VehicleSpeed) </td>
             <td>@dv.CarbonEmi</td>
 
 
@@ -80,12 +80,12 @@
             {
                 <td>
                     <a asp-controller="Delivery" asp-action="EditDelivery"
-                       asp-route-id="@dv.DeliveryId">Edit</a>
+                       asp-route-id="@dv.DeliveryId"><i class="fas fa-pencil-alt"></i></a>
                     |
                     <a asp-controller="Delivery" asp-action="DeleteDelivery"
                        asp-route-id="@dv.DeliveryId"
                        onclick="return confirm('Are you sure you want to delete: @dv.Details?')">
-                        Delete
+                        <i class="fas fa-trash-alt"></i>
                     </a>
                 </td>
             }

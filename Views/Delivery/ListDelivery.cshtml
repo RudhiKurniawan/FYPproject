@@ -33,15 +33,17 @@
         <tr>
             @{//<th scope="col">ID</th>
             }
-            <th scope="col">Customer's 'Name</th>
+            <th scope="col">Customer's Name</th>
             <th scope="col">Company</th>
             <th scope="col">Details</th>
             <th scope="col">From</th>
             <th scope="col">To</th>
             <th scope="col">Distance (in km)</th>
-            <th scope="col">Weight (in kg)</th>
-            <th scope="col">Speed (in km/h)</th>
-            <th scope="col">Type</th>
+            <th scope="col">Type of Vehicle</th>
+            <th scope="col">Weight of Package (in kg)</th>
+            <th scope="col">Weight of Vehicle (in kg)</th>
+            <th scope="col">Weight of Loaded Vehicle (in kg)</th>
+            <th scope="col">Speed of Vehicle (in km/h)</th>
             <th scope="col">Carbon Emission</th>
 
             @if (User.IsInRole("admin") || User.IsInRole("manager"))
@@ -65,9 +67,11 @@
             <td>@dv.CountryFrom</td>
             <td>@dv.CountryTo</td>
             <td>@dv.Distance</td>
-            <td>@dv.WeightPackage</td>
-            <td>@dv.Speed </td>
             <td>@dv.VehicleType</td>
+            <td>@dv.WeightPackage</td>
+            <td>@dv.VehicleWeight</td>
+            <td>@dv.TotalWeight</td>
+            <td>@dv.VehicleSpeed </td>
             <td>@dv.CarbonEmi</td>
 
 

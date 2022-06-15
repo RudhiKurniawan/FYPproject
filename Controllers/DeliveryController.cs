@@ -54,10 +54,13 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                string insert = @"INSERT INTO Delivery(FullName, CompanyId, Details, CountryFrom, CountryTo, Distance, WeightPackage, Speed, VehicleId, CarbonEmi)
-                                  VALUES('{0}', '{1}', {2} ,'{3}', '{4}', {5}, {6}, {7}, {8}, {9})";
+                string insert = @"INSERT INTO Delivery(FullName, CompanyId, Details, CountryFrom, CountryTo, Distance, 
+                                  VehicleId, WeightPackage, VehicleWeight, TotalWeight, VehicleSpeed, CarbonEmi)
+                                  VALUES('{0}', {1}, '{2}' ,'{3}', '{4}', {5}, {6}, {7}, {8}, {9}, {10}, {11})";
                 int result =
-                DBUtl.ExecSQL(insert, newDelivery.FullName, newDelivery.CompanyId, newDelivery.Details, newDelivery.CountryFrom, newDelivery.CountryTo, newDelivery.Distance, newDelivery.WeightPackage, newDelivery.Speed, newDelivery.VehicleId, newDelivery.CarbonEmi); if (result == 1)
+                DBUtl.ExecSQL(insert, newDelivery.FullName, newDelivery.CompanyId, newDelivery.Details, newDelivery.CountryFrom, 
+                newDelivery.CountryTo, newDelivery.Distance, newDelivery.VehicleId, newDelivery.WeightPackage, newDelivery.VehicleWeight, newDelivery.TotalWeight,
+                newDelivery.VehicleSpeed, newDelivery.CarbonEmi); if (result == 1)
                 {
                     TempData["Message"] = "Delivery Created";
                     TempData["MsgType"] = "success";
@@ -75,10 +78,9 @@ namespace WebApplication1.Controllers
         public IActionResult EditDelivery(string id)
         {
             string deliverySql = @"SELECT DeliveryId, FullName, CompanyId, Details, CountryFrom, CountryTo,
-                                   Distance, WeightPackage, Speed, Vehicle.VehicleId, CarbonEmi
-                                   FROM Delivery, Vehicle
-                                   WHERE Delivery.VehicleId = Vehicle.VehicleId
-                                   AND Delivery.DeliveryId = '{0}'";
+                                   Distance, VehicleId,  WeightPackage, VehicleWeight, TotalWeight, VehicleSpeed,CarbonEmi
+                                   FROM Delivery
+                                   WHERE Delivery.DeliveryId = '{0}'";
             List<Delivery> deliveryList = DBUtl.GetList<Delivery>(deliverySql, id);
             if (deliveryList.Count == 1)
             {
@@ -106,11 +108,13 @@ namespace WebApplication1.Controllers
                 return View("EditDelivery");
             }
             string update = @"UPDATE Delivery
-                              SET FullName= '{1}', CompanyId = {2}, Details= '{3}', CountryFrom='{4}', CountryTo='{5}', Distance={6}, WeightPackage={7}, Speed={8}, VehicleId={9}, CarbonEmi={10}
+                              SET FullName= '{1}', CompanyId = {2}, Details= '{3}', CountryFrom='{4}',
+                              CountryTo='{5}', Distance={6},  VehicleId={7}, WeightPackage={8}, 
+                              VehicleWeight ={9}, TotalWeight={10}, VehicleSpeed={11}, CarbonEmi={12}
                               WHERE DeliveryId={0}";
             int result =
             DBUtl.ExecSQL(update, deli.DeliveryId, deli.FullName, deli.CompanyId, deli.Details, deli.CountryFrom,
-            deli.CountryTo, deli.Distance, deli.WeightPackage, deli.Speed, deli.VehicleId, deli.CarbonEmi
+            deli.CountryTo, deli.Distance, deli.VehicleId, deli.WeightPackage, deli.VehicleWeight, deli.TotalWeight, deli.VehicleSpeed,  deli.CarbonEmi
             );
             if (result == 1)
             {

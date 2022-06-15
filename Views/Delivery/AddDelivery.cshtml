@@ -571,7 +571,18 @@
     </div>
 
     <div class="form-group row">
-        <label class="control-label col-sm-2" asp-for="WeightPackage">Weight (kg):</label>
+        <label class="control-label col-sm-2" asp-for="VehicleId">Vehicle Type :</label>
+        <div class="col-sm-3">
+            <select class="form-control dropdown" asp-for="VehicleId"
+                    asp-items="@ViewData["Vehicles"] as SelectList">
+                <option value="">Please Select Vehicle Type</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label class="control-label col-sm-2" asp-for="WeightPackage">Weight (Package):</label>
         <div class="col-sm-2">
             <input asp-for="WeightPackage" class="form-control" />
         </div>
@@ -581,22 +592,32 @@
     </div>
 
     <div class="form-group row">
-        <label class="control-label col-sm-2" asp-for="Speed">Speed (km/h):</label>
+        <label class="control-label col-sm-2" asp-for="VehicleWeight">Weight (Vehicle):</label>
         <div class="col-sm-2">
-            <input asp-for="Speed" class="form-control" />
+            <input asp-for="VehicleWeight" class="form-control" />
         </div>
         <div class="col-sm-4">
-            <span asp-validation-for="Speed" class="text-danger"></span>
+            <span asp-validation-for="VehicleWeight" class="text-danger"></span>
         </div>
     </div>
 
     <div class="form-group row">
-        <label class="control-label col-sm-2" asp-for="VehicleId">Vehicle Type :</label>
-        <div class="col-sm-3">
-            <select class="form-control dropdown" asp-for="VehicleId"
-                    asp-items="@ViewData["Vehicles"] as SelectList">
-                <option value="">Please Select Vehicle Type</option>
-            </select>
+        <label class="control-label col-sm-2" asp-for="TotalWeight">Net Weight:</label>
+        <div class="col-sm-2">
+            <input asp-for="TotalWeight" class="form-control" />
+        </div>
+        <div class="col-sm-4">
+            <span asp-validation-for="TotalWeight" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-sm-2" asp-for="VehicleSpeed">Speed (km/h):</label>
+        <div class="col-sm-2">
+            <input asp-for="VehicleSpeed" class="form-control" />
+        </div>
+        <div class="col-sm-4">
+            <span asp-validation-for="VehicleSpeed" class="text-danger"></span>
         </div>
     </div>
 

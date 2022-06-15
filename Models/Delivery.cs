@@ -27,7 +27,10 @@ namespace WebApplication1.Models
 
       public double WeightPackage { get; set; }
 
-      public int Speed { get; set; }
+      public double VehicleWeight { get; set; }
+
+      public double TotalWeight { get; set; }
+      public double VehicleSpeed { get; set; }
 
       public int VehicleId { get; set; }
 

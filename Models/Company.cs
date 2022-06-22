@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace WebApplication1.Models
         public int CompanyId { get; set; }
 
         [Required(ErrorMessage = "Please enter your Company Name")]
+        [Remote(action: "VerifyCompany", controller: "Account")]
         public string CompanyName { get; set; }
 
         

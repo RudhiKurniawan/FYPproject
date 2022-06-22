@@ -284,10 +284,21 @@ namespace WebApplication1.Controllers
          string select = $"SELECT * FROM DeliUser WHERE UserId='{userId}'";
          if (DBUtl.GetTable(select).Rows.Count > 0)
          {
-            return Json($"[{userId}] already in use");
+            return Json($"{userId} already in use");
          }
          return Json(true);
       }
+
+        [AllowAnonymous]
+        public IActionResult VerifyCompany(string companyName)
+        {
+            string select = $"SELECT * FROM Company WHERE CompanyName='{companyName}'";
+            if (DBUtl.GetTable(select).Rows.Count > 0)
+            {
+                return Json($"{companyName} already in use");
+            }
+            return Json(true);
+        }
         private bool AuthenticateUser(string uid, string pw, out ClaimsPrincipal principal)
       {
          principal = null;

@@ -1,0 +1,53 @@
+﻿@model List<Vehicle>
+
+@section MoreScripts {
+    <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#jsUserTable').DataTable({
+                paging: true,
+                ordering: true,
+                searcing: true,
+                info: true,
+                lengthMenu: [[6, 10, 20, -1], [6, 10, 20, "All"]]
+            });
+        });
+    </script>
+
+
+}
+
+<h2>Vehicles</h2>
+
+<table id="jsUserTable" class='table'>
+    <thead>
+        <tr>
+            <th scope="col">Vehicle Type</th>
+            <th scope="col">Vehicle Weight (In Kg)</th>
+            <th scope="col">Vehicle Speed (Km/h)</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Vehicle vehicle in Model)
+        {
+            <tr>
+                <td>@vehicle.VehicleType</td>
+                <td>@vehicle.VehicleWeight</td>
+                <td>@vehicle.VehicleSpeed</td>
+                
+                <td>
+                    <a asp-controller="Delivery"
+                       asp-action="DeleteVehicles"
+                       asp-route-id="@vehicle.VehicleId"
+                       onclick="return confirm('Delete Vehicle [@vehicle.VehicleType]')">
+                        Delete
+                    </a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

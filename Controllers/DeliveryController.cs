@@ -33,6 +33,15 @@ namespace WebApplication1.Controllers
               AND Delivery.CompanyId = Company.CompanyId");
             return View(delivery);
         }
+
+        [Authorize(Roles = "manager, admin, user")]
+        public IActionResult ListVehicle()
+        {
+            List<Vehicle> vehicle = DBUtl.GetList<Vehicle>(
+             @"SELECT * FROM Vehicle");
+            return View(vehicle);
+        }
+
         [Authorize(Roles = "manager, member, admin")]
         public IActionResult AddDelivery()
         {
@@ -155,6 +164,34 @@ namespace WebApplication1.Controllers
                 }
             }
             return RedirectToAction("ListDelivery");
+        }
+
+        public IActionResult DeleteVehicles(int id)
+        {
+            string select = @"SELECT * FROM Vehicle
+                              WHERE VehicleId={1}";
+            DataTable ds = DBUtl.GetTable(select, id);
+            if (ds.Rows.Count != 1)
+            {
+                TempData["Message"] = "Vehicle record no longer exists.";
+                TempData["MsgType"] = "warning";
+            }
+            else
+            {
+                string delete = "DELETE FROM Vehicle WHERE VehicleId={0}";
+                int res = DBUtl.ExecSQL(delete, id);
+                if (res == 1)
+                {
+                    TempData["Message"] = "Vehicle Deleted";
+                    TempData["MsgType"] = "success";
+                }
+                else
+                {
+                    TempData["Message"] = DBUtl.DB_Message;
+                    TempData["MsgType"] = "danger";
+                }
+            }
+            return RedirectToAction("ListVehicle");
         }
         private static SelectList GetListVehicles()
         {

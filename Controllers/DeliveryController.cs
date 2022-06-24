@@ -65,11 +65,11 @@ namespace WebApplication1.Controllers
             {
                 string insert = 
                     @"INSERT INTO Delivery(FullName, CompanyId, Details, CountryFrom, CountryTo, Distance, 
-                                  VehicleId, WeightPackage, VehicleWeight, TotalWeight, CarbonEmi)
-                                  VALUES('{0}', {1}, '{2}' ,'{3}', '{4}', {5}, {6}, {7}, {8}, {9}, {10})";
+                                  VehicleId, WeightPackage, VehicleWeight, TotalWeight, VehicleSpeed, CarbonEmi)
+                                  VALUES('{0}', {1}, '{2}' ,'{3}', '{4}', {5}, {6}, {7}, {8}, {9}, {10}, {11})";
                 int result =
                 DBUtl.ExecSQL(insert, newDelivery.FullName, newDelivery.CompanyId, newDelivery.Details, newDelivery.CountryFrom, 
-                newDelivery.CountryTo, newDelivery.Distance, newDelivery.VehicleId, newDelivery.WeightPackage, newDelivery.VehicleWeight, newDelivery.TotalWeight,
+                newDelivery.CountryTo, newDelivery.Distance, newDelivery.VehicleId, newDelivery.WeightPackage, newDelivery.VehicleWeight, newDelivery.VehicleSpeed, newDelivery.TotalWeight,
               newDelivery.CarbonEmi); 
                 
                 if (result == 1)
@@ -90,7 +90,7 @@ namespace WebApplication1.Controllers
         public IActionResult EditDelivery(string id)
         {
             string deliverySql = @"SELECT DeliveryId, FullName, CompanyId, Details, CountryFrom, CountryTo,
-                                   Distance, VehicleId,  WeightPackage, VehicleWeight, TotalWeight, VehicleSpeed,CarbonEmi
+                                   Distance, VehicleId,  WeightPackage, VehicleWeight, TotalWeight, VehicleSpeed, CarbonEmi
                                    FROM Delivery
                                    WHERE Delivery.DeliveryId = '{0}'
                                    ";

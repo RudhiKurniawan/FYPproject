@@ -563,7 +563,7 @@
     <div class="form-group row">
         <label class="control-label col-sm-2" asp-for="Distance">Distance (km) :</label>
         <div class="col-sm-2">
-            <input asp-for="Distance" class="form-control" />
+            <input asp-for="Distance" class="form-control" id="dist"/>
         </div>
         <div class="col-sm-4">
             <span asp-validation-for="Distance" class="text-danger"></span>
@@ -604,27 +604,29 @@
     <div class="form-group row">
         <label class="control-label col-sm-2" asp-for="TotalWeight">Net Weight:</label>
         <div class="col-sm-2">
-            <input asp-for="TotalWeight" class="form-control" />
+            <input asp-for="TotalWeight" class="form-control" id="netWeight" />
         </div>
         <div class="col-sm-4">
             <span asp-validation-for="TotalWeight" class="text-danger"></span>
         </div>
     </div>
 
+    
     <div class="form-group row">
         <label class="control-label col-sm-2" asp-for="VehicleSpeed">Speed (km/h):</label>
         <div class="col-sm-2">
-            <input asp-for="VehicleSpeed" class="form-control" />
+            <input asp-for="VehicleSpeed" class="form-control" id="vehSpeed"/>
         </div>
         <div class="col-sm-4">
             <span asp-validation-for="VehicleSpeed" class="text-danger"></span>
         </div>
     </div>
+   
 
     <div class="form-group row">
         <label class="control-label col-sm-2" asp-for="CarbonEmi">Carbon Emission :</label>
         <div class="col-sm-2">
-            <input asp-for="CarbonEmi" class="form-control" />
+            <input asp-for="CarbonEmi" readonly id="carbonEmi" class="form-control" />
         </div>
         <div class="col-sm-4">
             <span asp-validation-for="CarbonEmi" class="text-danger"></span>
@@ -650,3 +652,38 @@
 
 </form>
 
+<script language="javascript">
+    function calcCarbonEmi(speed, dist, netWeight) {
+        return (netWeight + dist) / speed;
+    }
+
+    $('#dist').on('keyup', function () {
+        const speed = parseInt($("#vehSpeed").val());
+        const dist = parseInt($('#dist').val());
+        const weight = parseInt($('#netWeight').val());
+
+        if (speed && dist && weight) {
+            $('#carbonEmi').val(calcCarbonEmi(speed, dist, weight));
+        }
+    });
+
+    $('#vehSpeed').on('keyup', function () {
+        const speed = parseInt($("#vehSpeed").val());
+        const dist = parseInt($('#dist').val());
+        const weight = parseInt($('#netWeight').val());
+
+        if (speed && dist && weight) {
+            $('#carbonEmi').val(calcCarbonEmi(speed, dist, weight));
+        }
+    });
+
+    $('#netWeight').on('keyup', function () {
+        const speed = parseInt($("#vehSpeed").val());
+        const dist = parseInt($('#dist').val());
+        const weight = parseInt($('#netWeight').val());
+
+        if (speed && dist && weight) {
+            $('#carbonEmi').val(calcCarbonEmi(speed, dist, weight));
+        }
+    });
+</script>

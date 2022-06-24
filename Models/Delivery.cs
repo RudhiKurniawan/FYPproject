@@ -23,9 +23,9 @@ namespace WebApplication1.Models
         [Required(ErrorMessage = "Please enter Details of Delivery")]
         public string Details { get; set; }
 
-      public string CountryFrom { get; set; }
+       public string CountryFrom { get; set; }
 
-      public string CountryTo { get; set; }
+       public string CountryTo { get; set; }
 
 
         [Required(ErrorMessage = "Please enter Delivery Distance")]
@@ -40,7 +40,8 @@ namespace WebApplication1.Models
         [Required(ErrorMessage = "Please enter Total Weight of Vehicle")]
         public double TotalWeight { get; set; }
 
-        [Required(ErrorMessage = "Please enter Speed of Vehicle")]
+        [Required(ErrorMessage = "Please enter your Vehicle Speed")]
+
         public double VehicleSpeed { get; set; }
 
         public int VehicleId { get; set; }
@@ -49,5 +50,9 @@ namespace WebApplication1.Models
 
         [Required(ErrorMessage = "Please enter your Carbon Emission")]
         public double CarbonEmi { get; set; }
+
+  
+
     }
+
 }

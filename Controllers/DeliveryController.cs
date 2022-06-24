@@ -63,13 +63,16 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                string insert = @"INSERT INTO Delivery(FullName, CompanyId, Details, CountryFrom, CountryTo, Distance, 
-                                  VehicleId, WeightPackage, VehicleWeight, TotalWeight, VehicleSpeed, CarbonEmi)
-                                  VALUES('{0}', {1}, '{2}' ,'{3}', '{4}', {5}, {6}, {7}, {8}, {9}, {10}, {11})";
+                string insert = 
+                    @"INSERT INTO Delivery(FullName, CompanyId, Details, CountryFrom, CountryTo, Distance, 
+                                  VehicleId, WeightPackage, VehicleWeight, TotalWeight, CarbonEmi)
+                                  VALUES('{0}', {1}, '{2}' ,'{3}', '{4}', {5}, {6}, {7}, {8}, {9}, {10})";
                 int result =
                 DBUtl.ExecSQL(insert, newDelivery.FullName, newDelivery.CompanyId, newDelivery.Details, newDelivery.CountryFrom, 
                 newDelivery.CountryTo, newDelivery.Distance, newDelivery.VehicleId, newDelivery.WeightPackage, newDelivery.VehicleWeight, newDelivery.TotalWeight,
-                newDelivery.VehicleSpeed, newDelivery.CarbonEmi); if (result == 1)
+              newDelivery.CarbonEmi); 
+                
+                if (result == 1)
                 {
                     TempData["Message"] = "Delivery Created";
                     TempData["MsgType"] = "success";
@@ -89,7 +92,8 @@ namespace WebApplication1.Controllers
             string deliverySql = @"SELECT DeliveryId, FullName, CompanyId, Details, CountryFrom, CountryTo,
                                    Distance, VehicleId,  WeightPackage, VehicleWeight, TotalWeight, VehicleSpeed,CarbonEmi
                                    FROM Delivery
-                                   WHERE Delivery.DeliveryId = '{0}'";
+                                   WHERE Delivery.DeliveryId = '{0}'
+                                   ";
             List<Delivery> deliveryList = DBUtl.GetList<Delivery>(deliverySql, id);
             if (deliveryList.Count == 1)
             {
@@ -137,6 +141,7 @@ namespace WebApplication1.Controllers
             }
             return RedirectToAction("ListDelivery");
         }
+
         [Authorize(Roles = "manager, admin")]
         public IActionResult DeleteDelivery(int id)
         {

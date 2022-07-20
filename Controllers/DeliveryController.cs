@@ -63,15 +63,15 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                string insert = 
+                string insert =
                     @"INSERT INTO Delivery(FullName, CompanyId, Details, CountryFrom, CountryTo, Distance, 
                                   VehicleId, WeightPackage, VehicleWeight, TotalWeight, VehicleSpeed, CarbonEmi)
                                   VALUES('{0}', {1}, '{2}' ,'{3}', '{4}', {5}, {6}, {7}, {8}, {9}, {10}, {11})";
                 int result =
-                DBUtl.ExecSQL(insert, newDelivery.FullName, newDelivery.CompanyId, newDelivery.Details, newDelivery.CountryFrom, 
+                DBUtl.ExecSQL(insert, newDelivery.FullName, newDelivery.CompanyId, newDelivery.Details, newDelivery.CountryFrom,
                 newDelivery.CountryTo, newDelivery.Distance, newDelivery.VehicleId, newDelivery.WeightPackage, newDelivery.VehicleWeight, newDelivery.VehicleSpeed, newDelivery.TotalWeight,
-              newDelivery.CarbonEmi); 
-                
+              newDelivery.CarbonEmi);
+
                 if (result == 1)
                 {
                     TempData["Message"] = "Delivery Created";
@@ -127,7 +127,7 @@ namespace WebApplication1.Controllers
                               WHERE DeliveryId={0}";
             int result =
             DBUtl.ExecSQL(update, deli.DeliveryId, deli.FullName, deli.CompanyId, deli.Details, deli.CountryFrom,
-            deli.CountryTo, deli.Distance, deli.VehicleId, deli.WeightPackage, deli.VehicleWeight, deli.TotalWeight, deli.VehicleSpeed,  deli.CarbonEmi
+            deli.CountryTo, deli.Distance, deli.VehicleId, deli.WeightPackage, deli.VehicleWeight, deli.TotalWeight, deli.VehicleSpeed, deli.CarbonEmi
             );
             if (result == 1)
             {
@@ -212,4 +212,3 @@ namespace WebApplication1.Controllers
         }
     }
 }
-

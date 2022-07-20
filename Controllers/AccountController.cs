@@ -12,8 +12,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace WebApplication1.Controllers
 {
 
-   public class AccountController : Controller
-   {
+    public class AccountController : Controller
+    {
         [Authorize]
         public IActionResult Logoff(string returnUrl = null)
         {
@@ -23,58 +23,58 @@ namespace WebApplication1.Controllers
             return RedirectToAction("About", "Delivery");
         }
 
-      [AllowAnonymous]
-      public IActionResult Login(string returnUrl = null)
-      {
-         TempData["ReturnUrl"] = returnUrl;
-         return View("UserLogin");
-      }
-
-      [AllowAnonymous]
-      [HttpPost]
-      public IActionResult Login(UserLogin user)
-      {
-         if (!AuthenticateUser(user.UserID, user.Password, out ClaimsPrincipal principal))
-         {
-            ViewData["Message"] = "Incorrect User ID or Password";
-            ViewData["MsgType"] = "warning";
+        [AllowAnonymous]
+        public IActionResult Login(string returnUrl = null)
+        {
+            TempData["ReturnUrl"] = returnUrl;
             return View("UserLogin");
-         }
-         else
-         {
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Login(UserLogin user)
+        {
+            if (!AuthenticateUser(user.UserID, user.Password, out ClaimsPrincipal principal))
+            {
+                ViewData["Message"] = "Incorrect User ID or Password";
+                ViewData["MsgType"] = "warning";
+                return View("UserLogin");
+            }
+            else
+            {
                 HttpContext.SignInAsync(
                    CookieAuthenticationDefaults.AuthenticationScheme,
                    principal);
 
                 if (TempData["returnUrl"] != null)
-            {
-               string returnUrl = TempData["returnUrl"].ToString();
-               if (Url.IsLocalUrl(returnUrl))
-                  return Redirect(returnUrl);
+                {
+                    string returnUrl = TempData["returnUrl"].ToString();
+                    if (Url.IsLocalUrl(returnUrl))
+                        return Redirect(returnUrl);
+                }
+
+                return RedirectToAction("ListDelivery", "Delivery");
             }
-
-            return RedirectToAction("ListDelivery", "Delivery");
-         }
-      }
+        }
 
 
-      [AllowAnonymous]
-      public IActionResult Forbidden()
-      {
-         return View();
-      }
+        [AllowAnonymous]
+        public IActionResult Forbidden()
+        {
+            return View();
+        }
 
-      [Authorize(Roles = "manager, admin")]
-      public IActionResult Users()
-      {
-         List<DeliUser> list = DBUtl.GetList<DeliUser>(
-             @"SELECT * FROM DeliUser, Company 
+        [Authorize(Roles = "manager, admin")]
+        public IActionResult Users()
+        {
+            List<DeliUser> list = DBUtl.GetList<DeliUser>(
+                @"SELECT * FROM DeliUser, Company 
                WHERE DeliUser.CompanyId = Company.CompanyId");
 
             return View(list);
-      }
+        }
 
-      [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult Companies()
         {
             List<Company> list = DBUtl.GetList<Company>("SELECT * FROM Company ");
@@ -83,23 +83,23 @@ namespace WebApplication1.Controllers
 
 
         [Authorize(Roles = "manager, admin")]
-      public IActionResult DeleteUser(string id)
-      {
-         string delete = "DELETE FROM DeliUser WHERE UserId='{0}'";
-         int res = DBUtl.ExecSQL(delete, id);
-         if (res == 1)
-         {
-            TempData["Message"] = "User Record Deleted";
-            TempData["MsgType"] = "success";
-         }
-         else
-         {
-            TempData["Message"] = DBUtl.DB_Message;
-            TempData["MsgType"] = "danger";
-         }
+        public IActionResult DeleteUser(string id)
+        {
+            string delete = "DELETE FROM DeliUser WHERE UserId='{0}'";
+            int res = DBUtl.ExecSQL(delete, id);
+            if (res == 1)
+            {
+                TempData["Message"] = "User Record Deleted";
+                TempData["MsgType"] = "success";
+            }
+            else
+            {
+                TempData["Message"] = DBUtl.DB_Message;
+                TempData["MsgType"] = "danger";
+            }
 
-         return RedirectToAction("Users");
-      }
+            return RedirectToAction("Users");
+        }
 
         [Authorize(Roles = "admin")]
         public IActionResult DeleteCompany(string id)
@@ -121,11 +121,11 @@ namespace WebApplication1.Controllers
         }
 
         [AllowAnonymous]
-      public IActionResult RegisterEmployee()
-      {
-         ViewData["Companies"] = GetListCompanies();
-         return View("UserRegisterEmployee");
-      }
+        public IActionResult RegisterEmployee()
+        {
+            ViewData["Companies"] = GetListCompanies();
+            return View("UserRegisterEmployee");
+        }
 
         [AllowAnonymous]
         [HttpPost]
@@ -279,15 +279,15 @@ namespace WebApplication1.Controllers
 
 
         [AllowAnonymous]
-      public IActionResult VerifyUserID(string userId)
-      {
-         string select = $"SELECT * FROM DeliUser WHERE UserId='{userId}'";
-         if (DBUtl.GetTable(select).Rows.Count > 0)
-         {
-            return Json($"{userId} already in use");
-         }
-         return Json(true);
-      }
+        public IActionResult VerifyUserID(string userId)
+        {
+            string select = $"SELECT * FROM DeliUser WHERE UserId='{userId}'";
+            if (DBUtl.GetTable(select).Rows.Count > 0)
+            {
+                return Json($"{userId} already in use");
+            }
+            return Json(true);
+        }
 
         [AllowAnonymous]
         public IActionResult VerifyCompany(string companyName)
@@ -300,8 +300,8 @@ namespace WebApplication1.Controllers
             return Json(true);
         }
         private bool AuthenticateUser(string uid, string pw, out ClaimsPrincipal principal)
-      {
-         principal = null;
+        {
+            principal = null;
 
             string sql = @"SELECT * FROM DeliUser 
                WHERE UserId = '{0}' 
@@ -310,7 +310,7 @@ namespace WebApplication1.Controllers
             string select = String.Format(sql, uid, pw);
             DataTable du = DBUtl.GetTable(select);
             if (du.Rows.Count == 1)
-         {
+            {
                 principal =
                    new ClaimsPrincipal(
                       new ClaimsIdentity(
@@ -320,12 +320,12 @@ namespace WebApplication1.Controllers
                         new Claim(ClaimTypes.Role, du.Rows[0]["UserRole"].ToString())
                          },
                          CookieAuthenticationDefaults.AuthenticationScheme));
-                  
-               
-            return true;
-         }
-         return false;
-      }
+
+
+                return true;
+            }
+            return false;
+        }
         private static SelectList GetListCompanies()
         {
             string companySql = @"SELECT LTRIM(STR(CompanyId)) as Value, CompanyName as Text FROM Company";

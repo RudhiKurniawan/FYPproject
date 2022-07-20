@@ -646,32 +646,26 @@
     function calcCarbonEmi(speed, dist, netWeight) {
         return (netWeight + dist) / speed;
     }
-
     $('#dist').on('keyup', function () {
         const speed = parseInt($("#vehSpeed").val());
         const dist = parseInt($('#dist').val());
         const weight = parseInt($('#netWeight').val());
-
         if (speed && dist && weight) {
             $('#carbonEmi').val(calcCarbonEmi(speed, dist, weight));
         }
     });
-
     $('#vehSpeed').on('keyup', function () {
         const speed = parseInt($("#vehSpeed").val());
         const dist = parseInt($('#dist').val());
         const weight = parseInt($('#netWeight').val());
-
         if (speed && dist && weight) {
             $('#carbonEmi').val(calcCarbonEmi(speed, dist, weight));
         }
     });
-
     $('#netWeight').on('keyup', function () {
         const speed = parseInt($("#vehSpeed").val());
         const dist = parseInt($('#dist').val());
         const weight = parseInt($('#netWeight').val());
-
         if (speed && dist && weight) {
             $('#carbonEmi').val(calcCarbonEmi(speed, dist, weight));
         }

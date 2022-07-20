@@ -8,93 +8,74 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-   public class ReportsController : Controller
-   {
-
-        [Authorize(Roles = "manager, admin")]
-        public IActionResult Distance()
-      {
-
-         PrepareData(1);
-         ViewData["Chart"] = "line";
-         ViewData["Title"] = "Distance";
-         ViewData["ShowLegend"] = "true";
-         return View("Charts");
-      }
+    public class ReportsController : Controller
+    {
         [Authorize(Roles = "manager, admin")]
         public IActionResult Vehicle()
-        { 
-         PrepareData(2); 
-         ViewData["Chart"] = "pie";
-         ViewData["Title"] = "Vehicle";
-         ViewData["ShowLegend"] = "true";
-         return View("Charts");
-      }
+        {
+            PrepareData(1);
+            ViewData["Chart"] = "pie";
+            ViewData["Title"] = "Vehicle";
+            ViewData["ShowLegend"] = "true";
+            return View("Charts");
+        }
         [Authorize(Roles = "manager, admin")]
         public IActionResult CarbonEmission()
-      {
-         
-         PrepareData(3);
-         ViewData["Chart"] = "bar";
-         ViewData["Title"] = "Carbon Emission";
-         ViewData["ShowLegend"] = "true";
-         return View("Charts");
-      }
+        {
 
-      private void PrepareData(int x)
-      {
-         int[] distance = new int[] { 0, 0, 0, 0, 0 };
-         int[] vehicle = new int[] { 0, 0, 0, 0 };
-         int[] carbonemi = new int[] { 0, 0, 0 };
-         List<Delivery> list = DBUtl.GetList<Delivery>("SELECT * FROM Delivery");
-         foreach (Delivery dv in list)
-         {
-            if (dv.Distance < 50) distance[0]++;
-            else if (dv.Distance < 250) distance[1]++;
-            else if (dv.Distance < 500) distance[2]++;
-            else if (dv.Distance < 1000) distance[3]++;
-            else distance[4]++;
+            PrepareData(2);
+            ViewData["Chart"] = "bar";
+            ViewData["Title"] = "Carbon Emission";
+            ViewData["ShowLegend"] = "true";
+            return View("Charts");
+        }
 
-            if (dv.VehicleId == 1) vehicle[0]++;
-            else if (dv.VehicleId == 2) vehicle[1]++;
-            else if (dv.VehicleId == 3) vehicle[2]++;
-            else vehicle[3]++;
+        private void PrepareData(int x)
+        {
+            int[] vehicle = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+            int[] carbonemi = new int[] { 0, 0, 0 };
+            List<Delivery> list = DBUtl.GetList<Delivery>("SELECT * FROM Delivery");
+            foreach (Delivery dv in list)
+            {
 
-            if (dv.CarbonEmi < 50) carbonemi[0]++;
-            else carbonemi[1]++;
-         }
+                if (dv.VehicleId == 1) vehicle[0]++;
+                else if (dv.VehicleId == 2) vehicle[1]++;
+                else if (dv.VehicleId == 3) vehicle[2]++;
+                else if (dv.VehicleId == 4) vehicle[3]++;
+                else if (dv.VehicleId == 5) vehicle[4]++;
+                else if (dv.VehicleId == 6) vehicle[5]++;
+                else vehicle[6]++;
 
-         if (x == 1)
-         {
-            ViewData["Legend"] = "Delivery by Distance";
-            ViewData["Colors"] = new[] { "violet", "green", "blue", "orange", "red" };
-            ViewData["Labels"] = new[] { "Very Short", "Short", "Normal", "Long", "Very Long" };
-            ViewData["Data"] = distance;
-         }
-         else if (x == 2)
-         {
-            ViewData["Legend"] = "Delivery by Vehicle Type";
-            ViewData["Colors"] = new[] { "red", "orange", "yellow", "green" };
-            ViewData["Labels"] = new[] { "Van", "Truck", "Ship", "Plane" };
-            ViewData["Data"] = vehicle;
-         }
-         else if (x == 3)
-         {
-            ViewData["Legend"] = "Delivery by Carbon Emission";
-            ViewData["Colors"] = new[] { "green", "red" };
-            ViewData["Labels"] = new[] { "Good", "Bad" };
-            ViewData["Data"] = carbonemi;
-         }
-         else
-         {
-            ViewData["Legend"] = "Nothing";
-            ViewData["Colors"] = new[] { "gray", "darkgray", "black" };
-            ViewData["Labels"] = new[] { "X", "Y", "Z" };
-            ViewData["Data"] = new int[] { 1, 2, 3};
-         }
+                if (dv.CarbonEmi < 25) carbonemi[0]++;
+                else if (dv.CarbonEmi < 50) carbonemi[1]++;
+                else carbonemi[2]++;
+            }
 
-      }
+    
+            if (x == 1)
+            {
+                ViewData["Legend"] = "Vehicle Type Preference";
+                ViewData["Colors"] = new[] { "red", "orange", "yellow", "green", "brown", "black", "grey" };
+                ViewData["Labels"] = new[] { "Van", "Truck", "Ship", "Plane", "Motorcycle", "Bicycle", "Car" };
+                ViewData["Data"] = vehicle;
+            }
+            else if (x == 2)
+            {
+                ViewData["Legend"] = "Carbon Emission Level";
+                ViewData["Colors"] = new[] { "black", "black", "black"  };
+                ViewData["Labels"] = new[] { "Low", "Moderate", "High"};
+                ViewData["Data"] = carbonemi;
+            }
+            else
+            {
+                ViewData["Legend"] = "Nothing";
+                ViewData["Colors"] = new[] { "gray", "darkgray", "black" };
+                ViewData["Labels"] = new[] { "X", "Y", "Z" };
+                ViewData["Data"] = new int[] { 1, 2, 3 };
+            }
 
-   }
+        }
+
+    }
 
 }

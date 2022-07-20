@@ -1,97 +1,97 @@
 ﻿@model List<Delivery>
 
-@section MoreScripts {
-    <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
-    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    @section MoreScripts {
+        <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('#jsDeliveryTable').DataTable({
-                paging: true,
-                ordering: true,
-                searcing: true,
-                info: true,
-                lengthMenu: [[6, 10, 20, -1], [6, 10, 20, "All"]]
+        <script>
+            $(document).ready(function () {
+                $('#jsDeliveryTable').DataTable({
+                    paging: true,
+                    ordering: true,
+                    searcing: true,
+                    info: true,
+                    lengthMenu: [[6, 10, 20, -1], [6, 10, 20, "All"]]
+                });
             });
-        });
-    </script>
+        </script>
 
 
-}
+    }
 
-<h2>Deliveries</h2>
+    <h2>Deliveries</h2>
 
-@if (TempData["Message"] != null)
-{
-    <div class="alert alert-@TempData["MsgType"]">
-        @TempData["Message"]
-    </div>
-}
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-@TempData["MsgType"]">
+            @TempData["Message"]
+        </div>
+    }
 
-<table id="jsDeliveryTable" class='table'>
-    <thead>
-        <tr>
-            @{//<th scope="col">ID</th>
-            }
-            <th scope="col">Customer's Name</th>
-            <th scope="col">Company</th>
-            <th scope="col">Details</th>
-            <th scope="col">From</th>
-            <th scope="col">To</th>
-            <th scope="col">Distance</th>
-            <th scope="col">Vehicle Type</th>
-            <th scope="col">Weight of Package</th>
-            <th scope="col">Weight of Vehicle</th>
-            <th scope="col">Weight of Loaded Vehicle</th>
-            <th scope="col">Speed of Vehicle</th>
-            <th scope="col">Carbon Emission</th>
+    <table id="jsDeliveryTable" class='table'>
+        <thead>
+            <tr>
+                @{//<th scope="col">ID</th>
+                }
+                <th scope="col">Customer's Name</th>
+                <th scope="col">Company</th>
+                <th scope="col">Details</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Distance</th>
+                <th scope="col">Vehicle Type</th>
+                <th scope="col">Weight of Package</th>
+                <th scope="col">Weight of Vehicle</th>
+                <th scope="col">Weight of Loaded Vehicle</th>
+                <th scope="col">Speed of Vehicle</th>
+                <th scope="col">Carbon Emission</th>
 
-            @if (User.IsInRole("admin") || User.IsInRole("manager"))
+                @if (User.IsInRole("admin") || User.IsInRole("manager"))
+                {
+                    <th scope="col">Operation</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Delivery dv in Model)
             {
-                <th scope="col">Operation</th>
+                <tr>
+                    @{
+                        //<td>@dv.DeliveryId</td>
+                    }
+
+
+                    <td>@dv.FullName</td>
+                    <td>@dv.CompanyName</td>
+                    <td>@dv.Details</td>
+                    <td>@dv.CountryFrom</td>
+                    <td>@dv.CountryTo</td>
+                    <td>@String.Format("{0} km", dv.Distance)</td>
+                    <td>@dv.VehicleType</td>
+                    <td>@String.Format("{0} kg", dv.WeightPackage)</td>
+                    <td>@String.Format("{0} kg", dv.VehicleWeight)</td>
+                    <td>@String.Format("{0} kg", dv.TotalWeight)</td>
+                    <td>@String.Format("{0} km/h", dv.VehicleSpeed) </td>
+                    <td>@dv.CarbonEmi</td>
+
+
+
+                    @if (User.IsInRole("admin") || User.IsInRole("manager"))
+                    {
+                        <td>
+                            <a asp-controller="Delivery" asp-action="EditDelivery"
+                               asp-route-id="@dv.DeliveryId"><i class="fas fa-pencil-alt"></i></a>
+                            |
+                            <a asp-controller="Delivery" asp-action="DeleteDelivery"
+                               asp-route-id="@dv.DeliveryId"
+                               onclick="return confirm('Are you sure you want to delete: @dv.Details?')">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    }
+
+
+                </tr>
             }
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Delivery dv in Model)
-        {
-        <tr>
-            @{
-                //<td>@dv.DeliveryId</td>
-            }
-
-
-            <td>@dv.FullName</td>
-            <td>@dv.CompanyName</td>
-            <td>@dv.Details</td>
-            <td>@dv.CountryFrom</td>
-            <td>@dv.CountryTo</td>
-            <td>@String.Format("{0} km", dv.Distance)</td>
-            <td>@dv.VehicleType</td>
-            <td>@String.Format("{0} kg", dv.WeightPackage)</td>
-            <td>@String.Format("{0} kg", dv.VehicleWeight)</td>
-            <td>@String.Format("{0} kg", dv.TotalWeight)</td>
-            <td>@String.Format("{0} km/h", dv.VehicleSpeed) </td>
-            <td>@dv.CarbonEmi</td>
-
-
-
-            @if (User.IsInRole("admin") || User.IsInRole("manager"))
-            {
-                <td>
-                    <a asp-controller="Delivery" asp-action="EditDelivery"
-                       asp-route-id="@dv.DeliveryId"><i class="fas fa-pencil-alt"></i></a>
-                    |
-                    <a asp-controller="Delivery" asp-action="DeleteDelivery"
-                       asp-route-id="@dv.DeliveryId"
-                       onclick="return confirm('Are you sure you want to delete: @dv.Details?')">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
-                </td>
-            }
-
-
-        </tr>
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>

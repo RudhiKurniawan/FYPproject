@@ -1,73 +1,69 @@
 ﻿<nav class="navbar navbar-expand-sm navbar-light bg-success">
 
-   
-   <button class="navbar-toggler" type="button"
-           data-toggle="collapse" data-target="#navbarSupportedContent"
-           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-   </button>
 
-   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-       <ul class="navbar-nav mr-auto">
+    <button class="navbar-toggler" type="button"
+            data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-           <li class="nav-item">
-               <a class="nav-link" asp-controller="Delivery" asp-action="About"><i class="fas fa-info-circle"></i> About</a>
-           </li>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
 
-           <li class="nav-item dropdown">
-               <a class="nav-link dropdown-toggle" data-toggle="dropdown">
-                   <i class="fas fa-chart-line"></i>
-                   Charts
-               </a>
-               <div class="dropdown-menu">
-                   <a class="nav-link" asp-controller="Reports" asp-action="Distance"><i class="fas fa-route"></i> Distance</a>
-                   <a class="nav-link" asp-controller="Reports" asp-action="Vehicle"><i class="fas fa-truck"></i> Vehicle Type</a>
-                   <a class="nav-link" asp-controller="Reports" asp-action="CarbonEmission"><i class="fas fa-recycle"></i> Carbon Emission</a>
-               </div>
-           </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Delivery" asp-action="About"><i class="fas fa-info-circle"></i> About</a>
+            </li>
 
-
-           <li class="nav-item">
-               <a class="nav-link" asp-controller="Delivery" asp-action="ListDelivery"><i class="fas fa-boxes"></i> Delivery</a>
-           </li>
-
-           <li class="nav-item">
-               <a class="nav-link" asp-controller="Delivery" asp-action="ListVehicle"><i class="fas fa-truck"></i> Vehicles</a>
-           </li>
-
-           <li class="nav-item">
-               <a class="nav-link" asp-controller="Delivery" asp-action="AddDelivery"><i class="fas fa-truck-loading"></i> Add Delivery</a>
-           </li>
-
-           <li class="nav-item">
-               <a class="nav-link" asp-controller="Account" asp-action="Users"><i class="fas fa-user"></i> Members</a>
-           </li>
-
-           <li class="nav-item">
-               <a class="nav-link" asp-controller="Delivery" asp-action="Calculation"><i class="fas fa-calculator"></i> Calculate</a>
-           </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-chart-line"></i>
+                    Charts
+                </a>
+                <div class="dropdown-menu">
+                    <a class="nav-link" asp-controller="Reports" asp-action="Vehicle"><i class="fas fa-truck"></i> Vehicle Type</a>
+                    <a class="nav-link" asp-controller="Reports" asp-action="CarbonEmission"><i class="fas fa-recycle"></i> Carbon Emission</a>
+                </div>
+            </li>
 
 
-       </ul>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Delivery" asp-action="ListDelivery"><i class="fas fa-boxes"></i> Delivery</a>
+            </li>
 
-      <ul class="nav navbar-nav ml-auto">
-         <li>
-            <p class="navbar-text">
-               Welcome @User.Identity.Name<br />
-            </p>
-         </li>
-         <li>
-            <a class="nav-link" asp-controller="Account" asp-action="Logoff">
-               <i class="fa fa-sign-out"></i>
-               Logout
-            </a>
-         </li>
-         <li>
-            &nbsp;&nbsp;&nbsp;
-         </li>
-      </ul>
-   </div>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Delivery" asp-action="ListVehicle"><i class="fas fa-truck"></i> Vehicles</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Delivery" asp-action="AddDelivery"><i class="fas fa-truck-loading"></i> Add Delivery</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Account" asp-action="Users"><i class="fas fa-user"></i> Members</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Delivery" asp-action="Calculation"><i class="fas fa-calculator"></i> Calculate</a>
+            </li>
+
+
+        </ul>
+
+        <ul class="nav navbar-nav ml-auto">
+            <li>
+                <p class="navbar-text">
+                    Welcome @User.Identity.Name<br />
+                </p>
+            </li>
+            <li>
+                <a class="nav-link" asp-controller="Account" asp-action="Logoff">
+                    <i class="fa fa-sign-out"></i>
+                    Logout
+                </a>
+            </li>
+            <li>
+                &nbsp;&nbsp;&nbsp;
+            </li>
+        </ul>
+    </div>
 </nav>
-
-
-

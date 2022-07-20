@@ -15,8 +15,8 @@ namespace WebApplication1.Models
         [Remote(action: "VerifyCompany", controller: "Account")]
         public string CompanyName { get; set; }
 
-        
+
     }
 
-    
+
 }

@@ -16,7 +16,7 @@ namespace WebApplication1.Controllers
             return Redirect("~/delivery/about");
         }
 
-      
+
 
     }
 

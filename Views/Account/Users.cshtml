@@ -21,13 +21,6 @@
 
 <h2>Users</h2>
 
-@if (TempData["Message"] != null)
-{
-    <div class="alert alert-@TempData["MsgType"]">
-        @TempData["Message"]
-    </div>
-}
-
 <table id="jsUserTable" class='table'>
     <thead>
         <tr>
@@ -53,13 +46,11 @@
                        asp-action="DeleteUser"
                        asp-route-id="@user.UserId"
                        onclick="return confirm('Delete User [@user.FullName]')">
-                        <i class="fas fa-trash-alt"></i>
+                        Delete
                     </a>
                 </td>
-                
+
             </tr>
         }
     </tbody>
 </table>
-
-

@@ -1,18 +1,18 @@
 ﻿@model Delivery;
 
 @section MoreScripts {
-<script src="~/lib/moment/moment.min.js"></script>
-<link href="~/lib/dtpicker/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-<script src="~/lib/dtpicker/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="~/lib/moment/moment.min.js"></script>
+    <link href="~/lib/dtpicker/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <script src="~/lib/dtpicker/js/tempusdominus-bootstrap-4.min.js"></script>
 
-<script language="javascript">
-      $(document).ready(function () {
-         $('#JSReleaseDT')
-            .datetimepicker({
-               format: 'YYYY-MM-DD',
-            });
-      });
-</script>
+    <script language="javascript">
+        $(document).ready(function () {
+            $('#JSReleaseDT')
+                .datetimepicker({
+                    format: 'YYYY-MM-DD',
+                });
+        });
+    </script>
 }
 
 <form asp-controller="Delivery"
@@ -92,32 +92,26 @@
     function calcCarbonEmi(speed, dist, netWeight) {
         return (netWeight + dist) / speed;
     }
-
     $('#dist').on('keyup', function () {
         const speed = parseInt($("#vehSpeed").val());
         const dist = parseInt($('#dist').val());
         const weight = parseInt($('#netWeight').val());
-
         if (speed && dist && weight) {
             $('#carbonEmi').val(calcCarbonEmi(speed, dist, weight));
         }
     });
-
     $('#vehSpeed').on('keyup', function () {
         const speed = parseInt($("#vehSpeed").val());
         const dist = parseInt($('#dist').val());
         const weight = parseInt($('#netWeight').val());
-
         if (speed && dist && weight) {
             $('#carbonEmi').val(calcCarbonEmi(speed, dist, weight));
         }
     });
-
     $('#netWeight').on('keyup', function () {
         const speed = parseInt($("#vehSpeed").val());
         const dist = parseInt($('#dist').val());
         const weight = parseInt($('#netWeight').val());
-
         if (speed && dist && weight) {
             $('#carbonEmi').val(calcCarbonEmi(speed, dist, weight));
         }

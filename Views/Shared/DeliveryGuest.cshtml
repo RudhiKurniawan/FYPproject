@@ -1,47 +1,47 @@
 ﻿<nav class="navbar navbar-expand-sm navbar-light bg-success">
 
-   
-   <button class="navbar-toggler" type="button"
-           data-toggle="collapse" data-target="#navbarSupportedContent"
-           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-   </button>
 
-   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-       <ul class="navbar-nav mr-auto">
-         
-           <li class="nav-item dropdown">
-               <a class="nav-link dropdown-toggle" data-toggle="dropdown">
-                   <i class="fas fa-user-plus"></i>
-                   Register
-               </a>
-               <div class="dropdown-menu">
-                   <a class="nav-link" asp-controller="Account" asp-action="RegisterCustomer"><i class="fas fa-user"></i> Customer</a>
-                   <a class="nav-link" asp-controller="Account" asp-action="RegisterEmployee"><i class="fas fa-user"></i> Employee</a>
-                   <a class="nav-link" asp-controller="Account" asp-action="RegisterEmployer"><i class="fas fa-user-tie"></i> Employer</a>
-                   <a class="nav-link" asp-controller="Account" asp-action="RegisterCompany"><i class="fas fa-building"></i> Company</a>
-               </div>
-           </li>
+    <button class="navbar-toggler" type="button"
+            data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-           <li class="nav-item">
-               <a class="nav-link" asp-controller="Delivery" asp-action="About"><i class="fas fa-info-circle"></i> About</a>
-           </li>
-           <li class="nav-item">
-               <a class="nav-link" asp-controller="Delivery" asp-action="Calculation"><i class="fas fa-calculator"></i> Calculate</a>
-           </li>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
 
-       </ul>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-user-plus"></i>
+                    Register
+                </a>
+                <div class="dropdown-menu">
+                    <a class="nav-link" asp-controller="Account" asp-action="RegisterCustomer"><i class="fas fa-user"></i> Customer</a>
+                    <a class="nav-link" asp-controller="Account" asp-action="RegisterEmployee"><i class="fas fa-user"></i> Employee</a>
+                    <a class="nav-link" asp-controller="Account" asp-action="RegisterEmployer"><i class="fas fa-user-tie"></i> Employer</a>
+                    <a class="nav-link" asp-controller="Account" asp-action="RegisterCompany"><i class="fas fa-building"></i> Company</a>
+                </div>
+            </li>
 
-      <ul class="nav navbar-nav ml-auto">
-         <li>
-            <a class="nav-link" asp-controller="Account" asp-action="Login">
-               <i class="fa fa-sign-in"></i>
-               Login
-            </a>
-         </li>
-         <li>
-            &nbsp;&nbsp;&nbsp;
-         </li>
-      </ul>
-   </div>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Delivery" asp-action="About"><i class="fas fa-info-circle"></i> About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Delivery" asp-action="Calculation"><i class="fas fa-calculator"></i> Calculate</a>
+            </li>
+
+        </ul>
+
+        <ul class="nav navbar-nav ml-auto">
+            <li>
+                <a class="nav-link" asp-controller="Account" asp-action="Login">
+                    <i class="fa fa-sign-in"></i>
+                    Login
+                </a>
+            </li>
+            <li>
+                &nbsp;&nbsp;&nbsp;
+            </li>
+        </ul>
+    </div>
 </nav>

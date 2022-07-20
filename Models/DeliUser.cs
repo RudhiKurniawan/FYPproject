@@ -10,29 +10,27 @@ namespace WebApplication1.Models
     public class DeliUser
 
     {
-        [Required(ErrorMessage = "Please enter a User ID")]
+        [Required(ErrorMessage = "Please enter User ID")]
         [Remote(action: "VerifyUserID", controller: "Account")]
         public string UserId { get; set; }
 
-        [Required(ErrorMessage = "Please enter a Password")]
+        [Required(ErrorMessage = "Please enter Password")]
         [StringLength(20, MinimumLength = 5, ErrorMessage = "Password must be 5 characters or more")]
         public string UserPw { get; set; }
 
         [Compare("UserPw", ErrorMessage = "Passwords do not match")]
         public string UserPw2 { get; set; }
 
-        [Required(ErrorMessage = "Please enter your Full Name")]
+        [Required(ErrorMessage = "Please enter Full Name")]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "Please enter your Email")]
+        [Required(ErrorMessage = "Please enter Email")]
         [EmailAddress(ErrorMessage = "Invalid Email")]
         public string Email { get; set; }
 
         public string UserRole { get; set; }
 
-      
         public string CompanyName { get; set; }
-
         public int CompanyId { get; set; }
 
 

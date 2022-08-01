@@ -34,7 +34,7 @@ namespace WebApplication1.Controllers
             return View(delivery);
         }
 
-        [Authorize(Roles = "manager, admin, user")]
+        [Authorize(Roles = "manager, admin, member")]
         public IActionResult ListVehicle()
         {
             List<Vehicle> vehicle = DBUtl.GetList<Vehicle>(

@@ -10,7 +10,7 @@ namespace WebApplication1.Controllers
 {
     public class ReportsController : Controller
     {
-        [Authorize(Roles = "manager, admin")]
+        [Authorize(Roles = "member, manager, admin")]
         public IActionResult Vehicle()
         {
             PrepareData(1);
@@ -19,7 +19,7 @@ namespace WebApplication1.Controllers
             ViewData["ShowLegend"] = "true";
             return View("Charts");
         }
-        [Authorize(Roles = "manager, admin")]
+        [Authorize(Roles = "member, manager, admin")]
         public IActionResult CarbonEmission()
         {
 
